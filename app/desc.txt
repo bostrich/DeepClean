@@ -1,0 +1,102 @@
+卸载残留：
+		https://aso100.com/rank/monthly/platform/android/country/cn/month/2017-09
+			wifi万能钥匙 -com.snda.wifilocating
+			新浪微博 - com.sina.weibo
+			腾讯视频 - com.tencent.qqlive
+			QQ 			-	com.tencent.mobileqq
+			WPS Office	-	cn.wps.moffice_eng
+			爱奇艺		-	com.qiyi.video
+			微信 		-	com.tencent.mm
+			高德地图	-	com.autonavi.minimap
+			今日头条	-	com.ss.android.article.news
+			支付宝		- 	com.eg.android.AlipayGphone
+			快手
+			腾讯新闻
+			美团
+			淘宝
+			手机百度
+			王者荣耀
+			QQ音乐
+			拼多多
+			酷狗音乐
+			唯品会
+			百度地图
+			腾讯手机管家
+			开卷有益
+			QQ浏览器
+			UC浏览器
+			优酷
+			美图秀秀
+			京东
+			携程
+			铃声多多
+			猎豹清理大师
+			去哪儿旅行
+			QQ同步助手
+			酷我音乐播放器
+			滴滴出行
+			美颜相机
+			搜狗输入法
+			作业帮
+			墨迹天气
+			360手机卫士
+			大众点评
+			讯飞输入法手机版
+			仙域豪情
+			全民K歌
+			中国建设银行
+			网易新闻
+			开心消消乐
+			摩拜单车
+			KingRoot
+			饿了么
+			火山小视频
+			梦幻西游礼包
+			西瓜视频
+			58同城
+			ofo共享单车
+			百度网盘
+			今日头条极速版
+			WIFI管家-腾讯
+			MOMO陌陌
+			喜马拉雅
+			凤凰新闻
+			内涵段子
+			地铁背单词考研版
+			哔哩哔哩
+			农行掌上银行
+			天天快报-腾讯
+			QQ邮箱
+			android system
+			faceu激萌
+			网易云音乐
+			翼支付
+			QQ空间
+			迅雷
+			无忧贷
+			土豆视频
+			B612咔叽
+			搜狐视频
+			美团外卖
+			欢乐斗地主
+			天猫
+			知乎
+			驾考宝典
+			中国工商银行
+			百度贴吧
+			工银融E联
+			汽车之家
+			率土之滨礼包
+			芒果TV
+			乐视视频
+			Quik
+			菠萝理财
+			借钱宝
+			新浪新闻
+			联通手机营业厅
+			天天P图
+			悦动圈
+			掌阅
+			抖音短视频
+			QQ阅读
+			搜狐新闻
