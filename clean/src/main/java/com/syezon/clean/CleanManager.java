@@ -463,7 +463,6 @@ public class CleanManager {
             e.printStackTrace();
         }
 
-
     }
 
     public static boolean deleteFile(File file) {

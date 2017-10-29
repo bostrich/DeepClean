@@ -34,6 +34,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:background="@drawable/bg_btn_clean"
         android:text="一键清理" />
 
     <android.support.design.widget.CoordinatorLayout
@@ -69,14 +70,14 @@
                         android:textColor="#ffffff"
                         android:text="200.4"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/tv_clean_scan_total"
-                        android:layout_alignTop="@id/tv_clean_scan_total"
-                        android:textSize="14sp"
-                        android:textColor="#ffffff"
-                        android:text="MB"/>
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_toRightOf="@id/tv_clean_scan_total"-->
+                        <!--android:layout_alignTop="@id/tv_clean_scan_total"-->
+                        <!--android:textSize="14sp"-->
+                        <!--android:textColor="#ffffff"-->
+                        <!--android:text="MB"/>-->
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -336,118 +337,6 @@
                         android:gravity="center_vertical"
                         android:layout_marginLeft="10dp"
                         android:text="卸载残留"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:layout_marginLeft="50dp"
-                        android:layout_alignParentBottom="true"
-                        android:background="#451254"/>
-                </RelativeLayout>
-
-                <!-- 图片扫描-->
-                <RelativeLayout
-                    android:layout_marginTop="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp">
-
-                    <ImageView
-                        android:id="@+id/img_img_left"
-                        android:layout_marginLeft="10dp"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/icon_img"/>
-
-                    <RelativeLayout
-                        android:id="@+id/rl_img_right"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="10dp"
-                        android:layout_centerVertical="true"
-                        android:gravity="center"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp">
-
-                        <ImageView
-                            android:id="@+id/img_loaded_img"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/icon_ok"
-                            android:visibility="gone"
-                            />
-
-                        <com.syezon.clean.DotRotateLoadingView
-                            android:id="@+id/custom_loading_img"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp" />
-                    </RelativeLayout>
-
-                    <TextView
-                        android:layout_toRightOf="@id/img_img_left"
-                        android:layout_toLeftOf="@id/rl_img_right"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:layout_marginLeft="10dp"
-                        android:text="图片扫描"
-                        android:textColor="#000000"
-                        android:textSize="14sp"/>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:layout_marginLeft="50dp"
-                        android:layout_alignParentBottom="true"
-                        android:background="#451254"/>
-                </RelativeLayout>
-
-                <!-- 微信扫描-->
-                <RelativeLayout
-                    android:layout_marginTop="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp">
-
-                    <ImageView
-                        android:id="@+id/img_wx_left"
-                        android:layout_marginLeft="10dp"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/icon_wx"/>
-
-                    <RelativeLayout
-                        android:id="@+id/rl_wx_right"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="10dp"
-                        android:layout_centerVertical="true"
-                        android:gravity="center"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp">
-
-                        <ImageView
-                            android:id="@+id/img_loaded_wx"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/icon_ok"
-                            android:visibility="gone"
-                            />
-
-                        <com.syezon.clean.DotRotateLoadingView
-                            android:id="@+id/custom_loading_wx"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp" />
-                    </RelativeLayout>
-
-                    <TextView
-                        android:layout_toRightOf="@id/img_wx_left"
-                        android:layout_toLeftOf="@id/rl_wx_right"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:layout_marginLeft="10dp"
-                        android:text="图片扫描"
                         android:textColor="#000000"
                         android:textSize="14sp"/>
 

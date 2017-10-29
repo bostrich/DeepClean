@@ -50,6 +50,7 @@ public class WxCleanActiviry extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wx_clean_activiry);
+        initHandler();
         initViews();
 
         initData();
@@ -67,6 +68,20 @@ public class WxCleanActiviry extends AppCompatActivity {
 //        if(listWxCache.size() > 0){
             setTalkingViews(llContainerItem);
 //        }
+        //设置显示视图背景
+        if(llContainerItem.getChildCount() > 0){
+            for (int i = 0; i < llContainerItem.getChildCount() - 1; i++) {
+                View view = llContainerItem.getChildAt(i);
+                ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+                if(layoutParams instanceof LinearLayout.LayoutParams){
+                    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) layoutParams;
+                    params.setMargins(0, 0, 0, 40);
+                    view.setLayoutParams(params);
+                }
+            }
+        }
+
+        btn.setEnabled(true);
     }
 
 
@@ -120,7 +135,6 @@ public class WxCleanActiviry extends AppCompatActivity {
      * 初始化数据
      */
     private void initData() {
-        initHandler();
         getGarbageAndLog();
         getSmallProgram();
         getTalking();
@@ -179,6 +193,7 @@ public class WxCleanActiviry extends AppCompatActivity {
         btn = (Button) findViewById(R.id.btn_clean);
         tvCleanScanTotal = (TextView) findViewById(R.id.tv_clean_scan_total);
         llContainerItem = (LinearLayout) findViewById(R.id.ll_container_items);
+        btn.setEnabled(false);
     }
 
     private void setGarbageAndCache(LinearLayout llContainerItem) {
@@ -188,6 +203,18 @@ public class WxCleanActiviry extends AppCompatActivity {
 
     private void setTalkingViews(LinearLayout llContainerItem) {
         View view = LayoutInflater.from(this).inflate(R.layout.item_wx_talking_scan_finished, null, false);
+        final LinearLayout llItemTitle = (LinearLayout) view.findViewById(R.id.ll_item_title);
+        final LinearLayout llTalkingItems = (LinearLayout) view.findViewById(R.id.ll_talking_item);
+        llItemTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(llTalkingItems.isShown()){
+                    llTalkingItems.setVisibility(View.GONE);
+                }else{
+                    llTalkingItems.setVisibility(View.VISIBLE);
+                }
+            }
+        });
         RelativeLayout rlTalkingImg = (RelativeLayout) view.findViewById(R.id.rl_talking_imgs);
         RelativeLayout rlVideo = (RelativeLayout) view.findViewById(R.id.rl_video);
         RelativeLayout rlTalkingSound = (RelativeLayout) view.findViewById(R.id.rl_talking_sound);

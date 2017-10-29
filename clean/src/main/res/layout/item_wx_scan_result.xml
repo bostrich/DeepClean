@@ -38,6 +38,7 @@
         android:layout_weight="1">
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/tv_total_size"
             android:layout_width="100dp"
             android:layout_height="match_parent"

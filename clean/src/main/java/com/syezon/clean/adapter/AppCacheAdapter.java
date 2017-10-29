@@ -54,9 +54,9 @@ public class AppCacheAdapter extends RecyclerView.Adapter<AppCacheAdapter.MyHold
 
         holder.tvSelectedSize.setText(Utils.formatSize(bean.getSize()));
         if(bean.isSelected()){
-            holder.checkBox.setSelected(true);
+            holder.checkBox.setChecked(true);
         }else{
-            holder.checkBox.setSelected(false);
+            holder.checkBox.setChecked(false);
         }
 
         holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

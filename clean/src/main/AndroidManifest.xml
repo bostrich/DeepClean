@@ -15,7 +15,8 @@
         <activity
             android:name=".WxCleanActiviry"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".ImgCompressActivity" />
+        <activity android:name=".ImgCompressActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".WxVoiceActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

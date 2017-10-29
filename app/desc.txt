@@ -1,102 +1,102 @@
 卸载残留：
-		https://aso100.com/rank/monthly/platform/android/country/cn/month/2017-09
-			wifi万能钥匙 -com.snda.wifilocating
-			新浪微博 - com.sina.weibo
-			腾讯视频 - com.tencent.qqlive
-			QQ 			-	com.tencent.mobileqq
-			WPS Office	-	cn.wps.moffice_eng
-			爱奇艺		-	com.qiyi.video
-			微信 		-	com.tencent.mm
-			高德地图	-	com.autonavi.minimap
-			今日头条	-	com.ss.android.article.news
-			支付宝		- 	com.eg.android.AlipayGphone
-			快手
-			腾讯新闻
-			美团
-			淘宝
-			手机百度
-			王者荣耀
-			QQ音乐
-			拼多多
-			酷狗音乐
-			唯品会
-			百度地图
-			腾讯手机管家
-			开卷有益
-			QQ浏览器
-			UC浏览器
-			优酷
-			美图秀秀
-			京东
-			携程
-			铃声多多
-			猎豹清理大师
-			去哪儿旅行
-			QQ同步助手
-			酷我音乐播放器
-			滴滴出行
-			美颜相机
-			搜狗输入法
-			作业帮
-			墨迹天气
-			360手机卫士
-			大众点评
-			讯飞输入法手机版
-			仙域豪情
-			全民K歌
-			中国建设银行
-			网易新闻
-			开心消消乐
-			摩拜单车
-			KingRoot
-			饿了么
-			火山小视频
-			梦幻西游礼包
-			西瓜视频
-			58同城
-			ofo共享单车
-			百度网盘
-			今日头条极速版
-			WIFI管家-腾讯
-			MOMO陌陌
-			喜马拉雅
-			凤凰新闻
-			内涵段子
-			地铁背单词考研版
-			哔哩哔哩
-			农行掌上银行
-			天天快报-腾讯
-			QQ邮箱
-			android system
-			faceu激萌
-			网易云音乐
-			翼支付
-			QQ空间
-			迅雷
-			无忧贷
-			土豆视频
-			B612咔叽
-			搜狐视频
-			美团外卖
-			欢乐斗地主
-			天猫
-			知乎
-			驾考宝典
-			中国工商银行
-			百度贴吧
-			工银融E联
-			汽车之家
-			率土之滨礼包
-			芒果TV
-			乐视视频
-			Quik
-			菠萝理财
-			借钱宝
-			新浪新闻
-			联通手机营业厅
-			天天P图
-			悦动圈
-			掌阅
-			抖音短视频
-			QQ阅读
-			搜狐新闻
+https://aso100.com/rank/monthly/platform/android/country/cn/month/2017-09
+wifi万能钥匙-com.snda.wifilocating-WiFiMasterKey
+新浪微博-com.sina.weibo-sina
+腾讯视频-com.tencent.qqlive-com.tencent.qqlive
+QQ-com.tencent.mobileqq-/tencent/MobileQQ
+WPS Office-cn.wps.moffice_eng-/documents
+爱奇艺-com.qiyi.video-QiYiVideo_Local
+微信-com.tencent.mm-/tencent/MiscroMsg
+高德地图-com.autonavi.minimap-/autonavi
+今日头条-com.ss.android.article.news-
+支付宝-com.eg.android.AlipayGphone
+快手-com.smile.gifmaker
+腾讯新闻-com.tencent.news-
+美团-com.sankuai.meituan-
+淘宝-com.taobao.taobao
+手机百度-com.baidu.searchbox
+王者荣耀-com.tencent.tmgp.sgame-/tencent/TMAssistantSDK
+QQ音乐-com.tencent.qqmusic
+拼多多-com.xunmeng.pinduoduo
+酷狗音乐-com.kugou.android
+唯品会-com.achievo.vipshop
+百度地图-com.baidu.BaiduMap
+腾讯手机管家-com.tencent.qqpimsecure
+开卷有益-com.kingreader.framework.hd
+QQ浏览器-com.tencent.mtt
+UC浏览器-com.UCMobile
+优酷-com.youku.phone
+美图秀秀-com.mt.mtxx.mtxx
+京东-com.jingdong.app.mall
+携程-ctrip.android.view
+铃声多多-com.shoujiduoduo.ringtone
+猎豹清理大师-com.cleanmaster.mguard.cn
+去哪儿旅行-com.Qunar
+QQ同步助手-com.tencent.qqpim
+酷我音乐播放器-cn.kuwo.player
+滴滴出行-com.sdu.didi.psnger
+美颜相机-com.meitu.meiyancamera
+搜狗输入法-com.sohu.inputmethod.sogou
+作业帮-com.baidu-homework
+墨迹天气-com.moji.mjweather
+360手机卫士-com.qihoo360.mobilesafe
+大众点评-com.dianping.v1
+讯飞输入法手机版-com.iflytek.inputmethod
+仙域豪情-
+全民K歌-com.tencent.karaoke
+中国建设银行-com.chinamworld.main
+网易新闻-com.netease.newsreader.activity
+开心消消乐-com.happyelements.AndroidAnimal
+摩拜单车-com.mobike.mobikeapp
+KingRoot-com.kingroot.kinguser
+饿了么-me.ele
+火山小视频-com.ss.android.ugc.live
+梦幻西游礼包-
+西瓜视频-com.ss.android.article.video
+58同城-com.wuba
+ofo共享单车-so.ofo.labofo
+百度网盘-com.baidu.netdisk
+今日头条极速版-com.ss.android.article.lite
+WIFI管家-腾讯-com.tencent.wifimanager
+MOMO陌陌-com.immomo.momo
+喜马拉雅-com.ximalaya.ting.android
+凤凰新闻-com.ifeng.news2
+内涵段子-com.ss.android.essay.joke
+地铁背单词考研版-com.shopfeng.englishlearnerKaoyan
+哔哩哔哩-tv.danmaku.bili
+农行掌上银行-com.android.bankabc
+天天快报_腾讯-com.tencent.reading
+QQ邮箱-com.tencent.androidqqmail
+android system-com.google.android.webview
+faceu激萌-com.lemon.faceu
+网易云音乐-com.netease.cloudmusic
+翼支付-com.chinaatelecom.bestpayclient
+QQ空间-com.qzone
+迅雷-com.xunlei.downloadprovider
+无忧贷-com.yixuan.wyd
+土豆视频-com.tudou.android
+B612咔叽-com.campmobile.snowcamera
+搜狐视频-com.sohu.sohuvideo
+美团外卖-com.sankuai.meituan.takeoutnew
+欢乐斗地主-com.qqgame.hlddz
+天猫-com.tmall.wireless
+知乎-com.zhihu.android
+驾考宝典-com.handsgo.jiakao.android
+中国工商银行-com.icbc
+百度贴吧-com.baidu.tieba
+工银融E联-com.icbc.im
+汽车之家-com.cubic.autohome
+率土之滨礼包
+芒果TV-com.hunantv.imgo.activity
+乐视视频-com.letv.android.client
+Quik-com.stupeflix.replay
+菠萝理财-com.pusupanshi.boluolicai
+借钱宝-com.ruanyou.jqb
+新浪新闻-com.sina.news
+联通手机营业厅-com.sinovatech.unicom.ui
+天天P图-com.tencent.ttpic
+悦动圈-com.yuedong.sport
+掌阅-com.chaozh.iReaderFree
+抖音短视频-com.ss.android.ugc.aweme
+QQ阅读-com.qq.reader
+搜狐新闻-com.sohu.newsclient

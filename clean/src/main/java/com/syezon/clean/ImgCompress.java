@@ -41,14 +41,14 @@ public class ImgCompress {
 
     /**
      * 通过contentProvider获取图片,运行在子线程中
-     * 只要获取截屏图片和拍照图片
+     * 只要获取拍照图片
      * 需要判断是否有外置SD卡 samsung 照片保存在外置存储卡中
      */
     public static boolean getImages(Context context) {
         //获取截屏文件夹位置
-        File picPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        String screenshotPath = picPath.getAbsolutePath() + File.separator + "Screenshots";
-        Log.e(TAG, "截屏路径：" + screenshotPath);
+//        File picPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+//        String screenshotPath = picPath.getAbsolutePath() + File.separator + "Screenshots";
+//        Log.e(TAG, "截屏路径：" + screenshotPath);
 
         List<String> ext = SDCardUtil.getExtSDCardPath();
 
@@ -81,18 +81,6 @@ public class ImgCompress {
 
             File original = new File(path);
 
-            Bitmap bitmap = BitmapFactory.decodeFile(path);
-            Log.e(TAG, path + "图片尺寸：" + bitmap.getWidth() + "--" + bitmap.getHeight());
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
-            long size = baos.toByteArray().length;
-            if(original.length() - size < 1024 * 100) continue;
-            try {
-                baos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
 
             //获取该图片的父路径名
             String parentName = new File(path).getParentFile().getAbsolutePath();
@@ -100,14 +88,40 @@ public class ImgCompress {
             bean.setParentName(parentName);
             bean.setPath(path);
             bean.setSelected(true);
-            bean.setSaveSize(original.length() - size);
             if(parentName.equals(cameraPath)){
                 cameraList.add(bean);
-            }else if(parentName.equals(screenshotPath)){
-                screenshotList.add(bean);
             }
             Log.e(TAG, path);
         }
         return true;
     }
+
+    public static void compress( String path) {
+        File original = new File(path);
+        Bitmap bitmap = BitmapFactory.decodeFile(path);
+        Log.e(TAG, path + "图片尺寸：" + bitmap.getWidth() + "--" + bitmap.getHeight());
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+        long size = baos.toByteArray().length;
+        Log.e(TAG, "图片初始尺寸：" + Utils.formatSize(original.length()) + "--压缩后尺寸：" + Utils.formatSize(size));
+        String temp = path.replace(".jpg", "_");
+        File file_target = new File(path + String.valueOf(System.currentTimeMillis()) + ".jpg");
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(file_target);
+            fos.write(baos.toByteArray());
+            fos.flush();
+            bitmap.recycle();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally{
+            try {
+                fos.close();
+                baos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

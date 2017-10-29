@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -49,6 +50,7 @@ public class CleanActivity extends AppCompatActivity {
     private static final int SCAN_WX_FINISHED = 5;
     private static final int APP_CACHE = 11;
     private static final int APK = 12;
+    private static final int CLEAN_SUCCESSED = 21;
 
     private DotRotateLoadingView customLoadingApk;
     private ImageView imgLoadedApk;
@@ -56,16 +58,15 @@ public class CleanActivity extends AppCompatActivity {
     private ImageView imgLoadedAd;
     private DotRotateLoadingView customLoadingCache;
     private ImageView imgLoadedCache;
-    private DotRotateLoadingView customLoadingImg;
-    private ImageView imgLoadedImg;
+//    private DotRotateLoadingView customLoadingImg;
+//    private ImageView imgLoadedImg;
     private DotRotateLoadingView customLoadingUninstall;
     private ImageView imgLoadedUninstall;
-    private DotRotateLoadingView customLoadingWx;
-    private ImageView imgLoadedWx;
-
+//    private DotRotateLoadingView customLoadingWx;
+//    private ImageView imgLoadedWx;
     private TextView tvCleanTotal, tvScanTotal;
-
     private LinearLayout llContainerItems;
+    private Button btn;
 
     private long scanSize;//扫描出来可以节省的空间
     private int scanFinishedItem;//扫描完成条目数
@@ -79,7 +80,10 @@ public class CleanActivity extends AppCompatActivity {
     public static List<WxCacheBean> wxCacheFiles = new ArrayList<>();
     public List<ApkBean> apkFiles = new ArrayList<>();
 
-
+    private long apkScanTotalSize;
+    private long cacheScanTotalSize;
+    private long apkCleanTotalSize;
+    private long cacheCleanTotalSize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +118,7 @@ public class CleanActivity extends AppCompatActivity {
                                 ApplicationInfo applicationInfo = pm.getApplicationInfo(bean.getPkgName(), PackageManager.GET_META_DATA);
                                 bean.setIcon(applicationInfo.loadIcon(pm));
                                 bean.setAppName(applicationInfo.loadLabel(pm).toString());
+                                bean.setSelected(true);
                                 listAppCaches.add(bean);
 
                                 scanSize += bean.getSize();
@@ -145,11 +150,20 @@ public class CleanActivity extends AppCompatActivity {
                         checkFinishedAllScan();
                         break;
                     case SCAN_WX_FINISHED:
-                        customLoadingWx.cleanRotating();
-                        customLoadingWx.setVisibility(View.GONE);
-                        imgLoadedWx.setVisibility(View.VISIBLE);
+//                        customLoadingWx.cleanRotating();
+//                        customLoadingWx.setVisibility(View.GONE);
+//                        imgLoadedWx.setVisibility(View.VISIBLE);
                         scanFinishedItem++;
                         checkFinishedAllScan();
+                        break;
+
+                    case CLEAN_SUCCESSED:
+                        int count = llContainerItems.getChildCount();
+                        if(count > 3){
+                            for (int i = 0; i < count - 3; i++) {
+                                llContainerItems.removeViewAt(0);
+                            }
+                        }
                         break;
                 }
 
@@ -285,6 +299,9 @@ public class CleanActivity extends AppCompatActivity {
             //添加QQ专清视图判断内存中是否具有QQ安装文件夹
             setQQCleanViews(llContainerItems);
 
+            //节省空间视图
+            setSaveSpaceViews(llContainerItems);
+
             //设置显示视图背景
             if(llContainerItems.getChildCount() > 0){
                 for (int i = 0; i < llContainerItems.getChildCount() - 1; i++) {
@@ -298,9 +315,33 @@ public class CleanActivity extends AppCompatActivity {
                 }
             }
         }
+
+        setButtonClick();
+
+        tvCleanTotal.setVisibility(View.VISIBLE);
+        setCleanTotalSize();
     }
 
+    private void setButtonClick() {
+        btn.setEnabled(true);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<AppCacheBean> list = new ArrayList<>();
+                for (int i = 0; i < listAppCaches.size(); i++) {
+                    AppCacheBean bean = listAppCaches.get(i);
+                    if(bean.isSelected()){
+                        list.add(bean);
+                    }
+                }
+                CleanManager.cleanAppCache(CleanActivity.this, list);
 
+                deleteApk();
+
+                mHandler.sendEmptyMessage(CLEAN_SUCCESSED);
+            }
+        });
+    }
 
 
     private void setAppCacheViews(LinearLayout llContainerItems) {
@@ -314,16 +355,61 @@ public class CleanActivity extends AppCompatActivity {
         tvItemName.setText("软件缓存");
         long size = 0;
         for (AppCacheBean bean :listAppCaches) {
-            size += bean.getSize();
+            cacheScanTotalSize += bean.getSize();
         }
-        tvTotalSize.setText(Utils.formatSize(size));
-        RecyclerView.Adapter adapter = new AppCacheAdapter(this, listAppCaches, new ApkItemSelectedListener() {
+        cacheCleanTotalSize = cacheScanTotalSize;
+        tvTotalSize.setText(Utils.formatSize(cacheScanTotalSize));
+        setCheckboxImgAndTag(imgCheckbox, 2);
+        final RecyclerView.Adapter adapter = new AppCacheAdapter(this, listAppCaches, new ApkItemSelectedListener() {
             @Override
             public void itemSelectedChanged(long size) {
-                if(size > 0){
-                    imgCheckbox.setImageResource(R.drawable.checkbox_selected_part);
+                if(size == cacheScanTotalSize){
+                    setCheckboxImgAndTag(imgCheckbox, 2);
+                }else if(size == 0){
+                    setCheckboxImgAndTag(imgCheckbox, 0);
+                }else{
+                    setCheckboxImgAndTag(imgCheckbox, 1);
                 }
+                cacheCleanTotalSize = size;
+                setCleanTotalSize();
                 tvTotalSize.setText(Utils.formatSize(size));
+            }
+        });
+
+        imgCheckbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int state = (int) view.getTag();
+                switch(state){
+                    case 0:
+                        for (int i = 0; i < listAppCaches.size(); i++) {
+                            listAppCaches.get(i).setSelected(true);
+                        }
+                        adapter.notifyDataSetChanged();
+                        cacheCleanTotalSize = cacheScanTotalSize;
+                        setCleanTotalSize();
+                        setCheckboxImgAndTag(imgCheckbox, 2);
+                        break;
+                    case 1:
+                        for (int i = 0; i < listAppCaches.size(); i++) {
+                            listAppCaches.get(i).setSelected(true);
+                        }
+                        adapter.notifyDataSetChanged();
+                        tvTotalSize.setText(Utils.formatSize(cacheScanTotalSize));
+                        cacheCleanTotalSize = cacheScanTotalSize;
+                        setCleanTotalSize();
+                        setCheckboxImgAndTag(imgCheckbox, 2);
+                        break;
+                    case 2:
+                        for (int i = 0; i < listAppCaches.size(); i++) {
+                            listAppCaches.get(i).setSelected(false);
+                        }
+                        adapter.notifyDataSetChanged();
+                        setCheckboxImgAndTag(imgCheckbox, 0);
+                        cacheCleanTotalSize = 0;
+                        setCleanTotalSize();
+                        break;
+                }
             }
         });
         rec.setAdapter(adapter);
@@ -353,6 +439,10 @@ public class CleanActivity extends AppCompatActivity {
         view.startAnimation(animation);
     }
 
+    private void setCleanTotalSize() {
+        tvCleanTotal.setText("已选择：" + Utils.formatSize(apkCleanTotalSize + cacheCleanTotalSize));
+    }
+
     private void setApkFilesViews(LinearLayout llContainerItems) {
         View view = LayoutInflater.from(this).inflate(R.layout.item_clean_scan_finished, null, false);
         LinearLayout llItem = (LinearLayout) view.findViewById(R.id.ll_item_title);
@@ -360,19 +450,63 @@ public class CleanActivity extends AppCompatActivity {
         final ImageView imgCheckbox = (ImageView) view.findViewById(R.id.img_item_state);
         final ImageView imgArrow = (ImageView) view.findViewById(R.id.img_arrow);
         final RecyclerView rec = (RecyclerView) view.findViewById(R.id.rec);
-        long size = 0;
         for (ApkBean bean :apkFiles) {
-            size += bean.getSize();
+            apkScanTotalSize += bean.getSize();
         }
-        tvTotalSize.setText(Utils.formatSize(size));
-        RecyclerView.Adapter adapter = new ApkInfoAdapter(this, apkFiles, new ApkItemSelectedListener() {
+        setCheckboxImgAndTag(imgCheckbox, 2);
+        apkCleanTotalSize = apkScanTotalSize;
+        tvTotalSize.setText(Utils.formatSize(apkScanTotalSize));
+        final RecyclerView.Adapter adapter = new ApkInfoAdapter(this, apkFiles, new ApkItemSelectedListener() {
             @Override
             public void itemSelectedChanged(long size) {
-                if(size > 0){
-                    imgCheckbox.setImageResource(R.drawable.checkbox_selected_part);
+                if(size == apkScanTotalSize){
+                    setCheckboxImgAndTag(imgCheckbox, 2);
+                }else if(size == 0){
+                    setCheckboxImgAndTag(imgCheckbox, 0);
+                }else{
+                    setCheckboxImgAndTag(imgCheckbox, 1);
                 }
+                apkCleanTotalSize = size;
+                setCleanTotalSize();
                 tvTotalSize.setText(Utils.formatSize(size));
             }
+        });
+        imgCheckbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int state = (int) v.getTag();
+                switch(state){
+                    case 0:
+                        for (int i = 0; i < apkFiles.size(); i++) {
+                            apkFiles.get(i).setSelected(true);
+                        }
+                        adapter.notifyDataSetChanged();
+                        setCheckboxImgAndTag(imgCheckbox, 2);
+                        apkCleanTotalSize = apkScanTotalSize;
+                        setCleanTotalSize();
+                        break;
+                    case 1:
+                        for (int i = 0; i < apkFiles.size(); i++) {
+                            apkFiles.get(i).setSelected(true);
+                        }
+                        adapter.notifyDataSetChanged();
+                        tvTotalSize.setText(Utils.formatSize(apkScanTotalSize));
+                        setCheckboxImgAndTag(imgCheckbox, 2);
+                        apkCleanTotalSize = apkScanTotalSize;
+                        setCleanTotalSize();
+                        break;
+                    case 2:
+                        for (int i = 0; i < apkFiles.size(); i++) {
+                            apkFiles.get(i).setSelected(false);
+                        }
+                        adapter.notifyDataSetChanged();
+                        setCheckboxImgAndTag(imgCheckbox, 0);
+                        apkCleanTotalSize = 0;
+                        setCleanTotalSize();
+                        break;
+                }
+            }
+
         });
         rec.setAdapter(adapter);
         rec.setLayoutManager(new LinearLayoutManager(this));
@@ -400,6 +534,43 @@ public class CleanActivity extends AppCompatActivity {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.in_from_right);
         view.startAnimation(animation);
 
+    }
+
+    private void setSaveSpaceViews(LinearLayout llContainerItems) {
+        View view = LayoutInflater.from(this).inflate(R.layout.item_save_space, null, false);
+        LinearLayout llSaveSpace = (LinearLayout) view.findViewById(R.id.ll_save_space);
+        final LinearLayout llImgCompress = (LinearLayout) view.findViewById(R.id.ll_img_compress);
+        final LinearLayout llVideoCompress = (LinearLayout) view.findViewById(R.id.ll_video_compress);
+        final ImageView imgArrow = (ImageView) view.findViewById(R.id.img_arrow);
+        llSaveSpace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(llImgCompress.isShown()){
+                    llImgCompress.setVisibility(View.GONE);
+                    llVideoCompress.setVisibility(View.GONE);
+                    ObjectAnimator anima = ObjectAnimator.ofFloat(imgArrow, "rotation", 180.0f, 360.0f)
+                            .setDuration(200);
+                    anima.setInterpolator(new LinearInterpolator());
+                    anima.start();
+                }else{
+                    llImgCompress.setVisibility(View.VISIBLE);
+                    llVideoCompress.setVisibility(View.VISIBLE);
+                    ObjectAnimator anima = ObjectAnimator.ofFloat(imgArrow, "rotation", 0.0f, 180.0f)
+                            .setDuration(200);
+                    anima.setInterpolator(new LinearInterpolator());
+                    anima.start();
+                }
+            }
+        });
+        llImgCompress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(CleanActivity.this, ImgCompressActivity.class));
+            }
+        });
+        llContainerItems.addView(view);
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.in_from_right);
+        view.startAnimation(animation);
     }
 
 
@@ -455,12 +626,8 @@ public class CleanActivity extends AppCompatActivity {
 
         initScanBeginViews();
 
-        initWxViews();
-
-        initCompressViews();
-
-        initVideoViews();
-
+        btn = (Button) findViewById(R.id.btn_clean);
+        btn.setEnabled(false);
 
     }
 
@@ -471,50 +638,58 @@ public class CleanActivity extends AppCompatActivity {
         customLoadingApk = (DotRotateLoadingView) findViewById(R.id.custom_loading_apk);
         customLoadingAd = (DotRotateLoadingView) findViewById(R.id.custom_loading_ad);
         customLoadingCache = (DotRotateLoadingView) findViewById(R.id.custom_loading_cache);
-        customLoadingImg = (DotRotateLoadingView) findViewById(R.id.custom_loading_img);
         customLoadingUninstall = (DotRotateLoadingView) findViewById(R.id.custom_loading_uninstall);
-        customLoadingWx = (DotRotateLoadingView) findViewById(R.id.custom_loading_wx);
+//        customLoadingImg = (DotRotateLoadingView) findViewById(R.id.custom_loading_img);
+//        customLoadingWx = (DotRotateLoadingView) findViewById(R.id.custom_loading_wx);
 
         customLoadingApk.startRotating();
         customLoadingAd.startRotating();
         customLoadingCache.startRotating();
-        customLoadingImg.startRotating();
         customLoadingUninstall.startRotating();
-        customLoadingWx.startRotating();
+//        customLoadingImg.startRotating();
+//        customLoadingWx.startRotating();
 
         imgLoadedAd = (ImageView) findViewById(R.id.img_loaded_ad);
         imgLoadedApk = (ImageView) findViewById(R.id.img_loaded_apk);
         imgLoadedCache = (ImageView) findViewById(R.id.img_loaded_cache);
-        imgLoadedImg = (ImageView) findViewById(R.id.img_loaded_img);
         imgLoadedUninstall = (ImageView) findViewById(R.id.img_loaded_uninstall);
-        imgLoadedWx = (ImageView) findViewById(R.id.img_loaded_wx);
+//        imgLoadedImg = (ImageView) findViewById(R.id.img_loaded_img);
+//        imgLoadedWx = (ImageView) findViewById(R.id.img_loaded_wx);
 
         //顶部视图初始化
         tvCleanTotal = (TextView) findViewById(R.id.tv_clean_total);
         tvScanTotal = (TextView) findViewById(R.id.tv_clean_scan_total);
 
+        tvCleanTotal.setVisibility(View.GONE);
+
         llContainerItems = (LinearLayout) findViewById(R.id.ll_container_items);
 
     }
 
-    private void initVideoViews() {
-    }
-
-    private void initCompressViews() {
-    }
-
-    private void initWxViews() {
-    }
 
     private void deleteApk() {
-        for (int i = 0; i < apks.size(); i++) {
-            ApkBean bean = apks.get(i);
+        for (int i = 0; i < apkFiles.size(); i++) {
+            ApkBean bean = apkFiles.get(i);
             if (bean.isSelected()) {
                 File file = bean.getFile();
                 boolean hasDeleted = file.delete();
                 Log.e(TAG, "是否删除：" + String.valueOf(hasDeleted));
             }
         }
+    }
+
+    public void setCheckboxImgAndTag(ImageView img, int state){
+        if(state == 0){
+            img.setImageResource(R.drawable.checkbox_unselected);
+            img.setTag(0);
+        }else if(state == 1){
+            img.setImageResource(R.drawable.checkbox_selected_part);
+            img.setTag(1);
+        }else if(state ==2){
+            img.setImageResource(R.drawable.checkbox_selected);
+            img.setTag(2);
+        }
+
     }
 
 }
