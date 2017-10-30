@@ -111,46 +111,46 @@ public class ImgCompressActivity extends AppCompatActivity {
     }
 
     private void setScanImageFinished(LinearLayout llContainerItems) {
-        llContainerItems.removeAllViews();
-        View view = LayoutInflater.from(this).inflate(R.layout.item_compress_img_scan_result, null, false);
-        LinearLayout llItem = (LinearLayout) view.findViewById(R.id.ll_item_title);
-        final ImageView imgCheckbox = (ImageView) view.findViewById(R.id.img_item_state);
-        final ImageView imgArrow = (ImageView) view.findViewById(R.id.img_arrow);
-        final RecyclerView rec = (RecyclerView) view.findViewById(R.id.rec);
-        long size = 0;
-
-        RecyclerView.Adapter adapter = new ImgCompressAdapter(this, ImgCompress.cameraList, new ApkItemSelectedListener() {
-            @Override
-            public void itemSelectedChanged(long size) {
-                if(size > 0){
-                    imgCheckbox.setImageResource(R.drawable.checkbox_selected_part);
-                }
-            }
-        });
-        rec.setAdapter(adapter);
-        rec.setLayoutManager(new GridLayoutManager(this, 3));
-        llItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(rec.isShown()){
-                    rec.setVisibility(View.GONE);
-                    ObjectAnimator anima = ObjectAnimator.ofFloat(imgArrow, "rotation", 180.0f, 360.0f)
-                            .setDuration(200);
-                    anima.setInterpolator(new LinearInterpolator());
-                    anima.start();
-                }else{
-                    rec.setVisibility(View.VISIBLE);
-                    ObjectAnimator anima = ObjectAnimator.ofFloat(imgArrow, "rotation", 0.0f, 180.0f)
-                            .setDuration(200);
-                    anima.setInterpolator(new LinearInterpolator());
-                    anima.start();
-                }
-            }
-        });
-        rec.setVisibility(View.GONE);
-        llContainerItems.addView(view);
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.in_from_right);
-        view.startAnimation(animation);
+//        llContainerItems.removeAllViews();
+//        View view = LayoutInflater.from(this).inflate(R.layout.item_compress_img_scan_result, null, false);
+//        LinearLayout llItem = (LinearLayout) view.findViewById(R.id.ll_item_title);
+//        final ImageView imgCheckbox = (ImageView) view.findViewById(R.id.img_item_state);
+//        final ImageView imgArrow = (ImageView) view.findViewById(R.id.img_arrow);
+//        final RecyclerView rec = (RecyclerView) view.findViewById(R.id.rec);
+//        long size = 0;
+//
+//        RecyclerView.Adapter adapter = new ImgCompressAdapter(this, ImgCompress.cameraList, new ApkItemSelectedListener() {
+//            @Override
+//            public void itemSelectedChanged(long size) {
+//                if(size > 0){
+//                    imgCheckbox.setImageResource(R.drawable.checkbox_selected_part);
+//                }
+//            }
+//        });
+//        rec.setAdapter(adapter);
+//        rec.setLayoutManager(new GridLayoutManager(this, 3));
+//        llItem.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                if(rec.isShown()){
+//                    rec.setVisibility(View.GONE);
+//                    ObjectAnimator anima = ObjectAnimator.ofFloat(imgArrow, "rotation", 180.0f, 360.0f)
+//                            .setDuration(200);
+//                    anima.setInterpolator(new LinearInterpolator());
+//                    anima.start();
+//                }else{
+//                    rec.setVisibility(View.VISIBLE);
+//                    ObjectAnimator anima = ObjectAnimator.ofFloat(imgArrow, "rotation", 0.0f, 180.0f)
+//                            .setDuration(200);
+//                    anima.setInterpolator(new LinearInterpolator());
+//                    anima.start();
+//                }
+//            }
+//        });
+//        rec.setVisibility(View.GONE);
+//        llContainerItems.addView(view);
+//        Animation animation = AnimationUtils.loadAnimation(this, R.anim.in_from_right);
+//        view.startAnimation(animation);
     }
 }

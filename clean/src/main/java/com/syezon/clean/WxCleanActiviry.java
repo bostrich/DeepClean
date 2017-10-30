@@ -30,6 +30,7 @@ public class WxCleanActiviry extends AppCompatActivity {
     private static final int GET_GARBAGE_AND_LOG = 11;
     private static final int GET_GARBAGE_AND_LOG_FINISHED = 12;
     private static final int GET_TALKING_FINISHED = 13;
+    private static final int GET_SCAN_TALKING_FILE = 14;
 
     private ImageView imgLoadedGarbage, imgLoadedProgram, imgLoadedTalking;
     private DotRotateLoadingView customLoadingGarbage, customLoadingProgram, customLoadingTalking;
@@ -109,12 +110,7 @@ public class WxCleanActiviry extends AppCompatActivity {
     }
 
     private void getSmallProgram() {
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//            }
-//        }).start();
+        //TODO 扫描小程序文件
     }
 
     /**
@@ -124,9 +120,21 @@ public class WxCleanActiviry extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                List<WxCacheBean> talkingFile = WxUtils.getTalkingFile();
+                List<WxCacheBean> talkingFile = WxUtils.getTalkingFile(new WxUtils.WxScanListener() {
+                    @Override
+                    public void getFile(WxCacheBean bean) {
+                        Message msg = mHandler.obtainMessage();
+                        msg.what = GET_SCAN_TALKING_FILE;
+                        msg.obj = bean;
+                        mHandler.sendMessage(msg);
+                    }
+
+                    @Override
+                    public void scanFinished() {
+                        mHandler.sendEmptyMessage(GET_TALKING_FINISHED);
+                    }
+                });
                 listWxCache.addAll(talkingFile);
-                mHandler.sendEmptyMessage(GET_TALKING_FINISHED);
             }
         }).start();
     }
@@ -172,9 +180,28 @@ public class WxCleanActiviry extends AppCompatActivity {
 
                         checkFinishedAllScan();
                         break;
+
+                    case GET_SCAN_TALKING_FILE://获取到微信文件
+                        if(msg.obj instanceof  WxCacheBean) {
+                            WxCacheBean bean = (WxCacheBean) msg.obj;
+                            addScanTalkiingFile(bean);
+                            scanTotalSize += bean.getSize();
+                            tvCleanScanTotal.setText(Utils.formatSize(scanTotalSize));
+                        }
+                        break;
                 }
             }
         };
+    }
+
+    /**
+     * 添加扫描到的微信聊天图片到集合中
+     * @param bean
+     */
+    private void addScanTalkiingFile(WxCacheBean bean) {
+        switch(bean.getType()){
+
+        }
     }
 
 
@@ -236,7 +263,6 @@ public class WxCleanActiviry extends AppCompatActivity {
 
         llContainerItem.addView(view);
     }
-
 
 
 }

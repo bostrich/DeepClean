@@ -14,10 +14,10 @@ import java.util.List;
  * 扫描微信文件夹
  * tencent/MicroMsg/文件夹下
  * 32为数字和字母文件夹为微信用户缓存文件夹
+ * sns 为朋友圈图片和视频
  */
 
 public class WxUtils {
-
 
     public static void getGarbageAndCache(FileScanUtil.ScanListener listener){
         File file = Environment.getExternalStorageDirectory();
@@ -35,7 +35,7 @@ public class WxUtils {
         listener.scanFinish();
     }
 
-    public static List<WxCacheBean> getTalkingFile(){
+    public static List<WxCacheBean> getTalkingFile(WxScanListener listener){
         File file = Environment.getExternalStorageDirectory();
         File file_wx = new File(file, "tencent/MicroMsg");
         List<WxCacheBean> wxCacheFiles = new ArrayList<>();
@@ -60,8 +60,8 @@ public class WxUtils {
                                 bean.setFileType("img");
                             }
                             wxCacheFiles.add(bean);
+                            if(listener != null) listener.getFile(bean);
                         }
-
                     }
 
                     File target2 = new File(temp, "image");
@@ -79,6 +79,7 @@ public class WxUtils {
                             bean.setSelected(true);
                             bean.setSize(fileImgs.get(i).length());
                             wxCacheFiles.add(bean);
+                            if(listener != null) listener.getFile(bean);
                         }
                     }
 
@@ -97,6 +98,7 @@ public class WxUtils {
                             bean.setSelected(true);
                             bean.setSize(fileImgs.get(i).length());
                             wxCacheFiles.add(bean);
+                            if(listener != null) listener.getFile(bean);
                         }
                     }
 
@@ -115,6 +117,7 @@ public class WxUtils {
                             bean.setSelected(true);
                             bean.setSize(fileImgs.get(i).length());
                             wxCacheFiles.add(bean);
+                            if(listener != null) listener.getFile(bean);
                         }
                     }
 
@@ -133,11 +136,13 @@ public class WxUtils {
                             bean.setSelected(true);
                             bean.setSize(fileImgs.get(i).length());
                             wxCacheFiles.add(bean);
+                            if(listener != null) listener.getFile(bean);
                         }
                     }
                 }
             }
         }
+        if(listener != null) listener.scanFinished();
         return wxCacheFiles;
     }
 
@@ -178,5 +183,11 @@ public class WxUtils {
             }
         }
         return mFileList;
+    }
+
+
+    public interface WxScanListener{
+        void getFile(WxCacheBean bean);
+        void scanFinished();
     }
 }

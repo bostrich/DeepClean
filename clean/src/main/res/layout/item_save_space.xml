@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#ffffff"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- title-->
+    <LinearLayout
+        android:id="@+id/ll_save_space"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:layout_height="match_parent">
+
+
+
+            <ImageView
+                android:id="@+id/img_icon"
+                android:layout_marginLeft="10dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/icon_save_space"/>
+
+            <TextView
+                android:id="@+id/tv_app_name"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="12sp"
+                android:text="节省空间"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:gravity="right"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_total_size"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="12sp"
+                android:text="12MB"/>
+
+            <ImageView
+                android:id="@+id/img_arrow"
+                android:layout_marginRight="10dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:padding="10dp"
+                android:src="@drawable/arrow_down"
+                />
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+    <!-- 照片压缩-->
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/ll_img_compress"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:layout_height="match_parent">
+
+
+
+            <ImageView
+                android:layout_marginLeft="10dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/icon_img_compress"/>
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="12sp"
+                android:text="照片压缩"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:gravity="right"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_total_size"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="12sp"
+                android:text="12MB"/>
+
+            <ImageView
+
+                android:layout_marginRight="10dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:padding="10dp"
+                android:src="@drawable/arrow_right"
+                />
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+    <!-- 视频压缩-->
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/ll_video_compress"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:layout_height="match_parent">
+
+
+
+            <ImageView
+                android:layout_marginLeft="10dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/icon_video_compress"/>
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="12sp"
+                android:text="视频压缩"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:gravity="right"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_total_size"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="12sp"
+                android:text="12MB"/>
+
+            <ImageView
+
+                android:layout_marginRight="10dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:padding="10dp"
+                android:src="@drawable/arrow_right"
+                />
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
