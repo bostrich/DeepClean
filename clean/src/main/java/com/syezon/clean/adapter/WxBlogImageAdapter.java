@@ -50,6 +50,26 @@ public class WxBlogImageAdapter extends RecyclerView.Adapter<WxBlogImageAdapter.
         }else{
             Glide.with(context).load(bean.getFile()).override(200, 200).into(holder.icon);
         }
+        holder.tvSize.setText(Utils.formatSize(bean.getFile().length()));
+        if(bean.isSelected()){
+            holder.cb.setChecked(true);
+        }else{
+            holder.cb.setChecked(false);
+        }
+        holder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                list.get(tem_position).setSelected(isChecked);
+                long size = 0;
+                for (int i = 0; i < list.size(); i++) {
+                    WxCacheBean bean = list.get(i);
+                    if(bean.isSelected()){
+                        size += bean.getSize();
+                    }
+                }
+                if(listener != null) listener.itemSelectedChanged(size);
+            }
+        });
 
     }
 
@@ -60,10 +80,14 @@ public class WxBlogImageAdapter extends RecyclerView.Adapter<WxBlogImageAdapter.
 
     public class MyHolder extends RecyclerView.ViewHolder {
         ImageView icon;
+        TextView tvSize;
+        CheckBox cb;
 
         public MyHolder(View itemView) {
             super(itemView);
             icon = (ImageView) itemView.findViewById(R.id.img_icon);
+            tvSize = (TextView) itemView.findViewById(R.id.tv_size);
+            cb = (CheckBox) itemView.findViewById(R.id.cb);
         }
     }
 

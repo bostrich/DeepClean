@@ -59,7 +59,7 @@ public class Utils {
                 unit = "GB";
             }
         }else{
-            unit = "kB";
+            unit = "KB";
         }
         DecimalFormat format = new DecimalFormat("#0");
         if (total < 10) {

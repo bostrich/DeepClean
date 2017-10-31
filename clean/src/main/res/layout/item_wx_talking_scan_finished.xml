@@ -53,6 +53,7 @@
         <!-- 微信小视频-->
         <RelativeLayout
             android:id="@+id/rl_video"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:gravity="center_vertical"
             android:layout_height="60dp">

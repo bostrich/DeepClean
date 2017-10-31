@@ -42,8 +42,11 @@ public class WxCleanActiviry extends AppCompatActivity {
     private List<File> listGarbage = new ArrayList<>();
     private List<File> listCache = new ArrayList<>();
     public static List<WxCacheBean> listWxCache = new ArrayList<>();
-    private Handler mHandler;
+    public static List<WxCacheBean> listTalkingVideo = new ArrayList<>();
+    public static List<WxCacheBean> listTalkingVideoCover = new ArrayList<>();
+    public static List<WxCacheBean> listBlogVideo = new ArrayList<>();
 
+    private Handler mHandler;
     private long scanTotalSize;//扫描结果总和
 
 
@@ -200,7 +203,19 @@ public class WxCleanActiviry extends AppCompatActivity {
      */
     private void addScanTalkiingFile(WxCacheBean bean) {
         switch(bean.getType()){
+            case "video"://聊天视频
+                if(bean.getFile().getName().endsWith("mp4")){
+                    listTalkingVideo.add(bean);
+                }else if(bean.getFile().getName().endsWith("jpg")){
+                    listTalkingVideoCover.add(bean);
+                }
 
+                break;
+            case "sns"://朋友圈图片和视频
+                if(bean.getFileType().endsWith("mp4")){
+                    listBlogVideo.add(bean);
+                }
+                break;
         }
     }
 
@@ -246,6 +261,16 @@ public class WxCleanActiviry extends AppCompatActivity {
         RelativeLayout rlVideo = (RelativeLayout) view.findViewById(R.id.rl_video);
         RelativeLayout rlTalkingSound = (RelativeLayout) view.findViewById(R.id.rl_talking_sound);
         RelativeLayout rlReceive = (RelativeLayout) view.findViewById(R.id.rl_receive);
+        //判断是否具有数据，没有不显示
+        if(listTalkingVideo.size() > 0 || listBlogVideo.size() > 0){
+            rlVideo.setVisibility(View.VISIBLE);
+        }
+        rlVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(WxCleanActiviry.this, WxVideoCleanActivity.class));
+            }
+        });
 
         rlTalkingSound.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -52,7 +52,7 @@ public class WxUtils {
                             WxCacheBean bean = new WxCacheBean();
                             bean.setFile(fileImgs.get(i));
                             bean.setType("sns");
-                            bean.setSelected(true);
+                            bean.setSelected(false);
                             bean.setSize(fileImgs.get(i).length());
                             if(bean.getFile().getName().startsWith("sight")){
                                 bean.setFileType("mp4");
@@ -76,7 +76,7 @@ public class WxUtils {
                             bean.setFile(fileImgs.get(i));
                             bean.setType("image");
                             bean.setFileType("img");
-                            bean.setSelected(true);
+                            bean.setSelected(false);
                             bean.setSize(fileImgs.get(i).length());
                             wxCacheFiles.add(bean);
                             if(listener != null) listener.getFile(bean);
@@ -95,7 +95,7 @@ public class WxUtils {
                             bean.setFile(fileImgs.get(i));
                             bean.setType("image2");
                             bean.setFileType("img");
-                            bean.setSelected(true);
+                            bean.setSelected(false);
                             bean.setSize(fileImgs.get(i).length());
                             wxCacheFiles.add(bean);
                             if(listener != null) listener.getFile(bean);
@@ -107,14 +107,18 @@ public class WxUtils {
                     if (target4.exists()) {
                         //遍历获取图片内容
                         if (target4.isDirectory()) {
-                            fileImgs.addAll(getFile(target4, "mp4"));
+                            fileImgs.addAll(getFile(target4, "video"));
                         }
                         for (int i = 0; i < fileImgs.size(); i++) {
                             WxCacheBean bean = new WxCacheBean();
                             bean.setFile(fileImgs.get(i));
+                            if(bean.getFile().getName().endsWith("mp4")){
+                                bean.setFileType("mp4");
+                            }else if(bean.getFile().getName().endsWith("jpg")){
+                                bean.setFileType("jpg");
+                            }
                             bean.setType("video");
-                            bean.setFileType("mp4");
-                            bean.setSelected(true);
+                            bean.setSelected(false);
                             bean.setSize(fileImgs.get(i).length());
                             wxCacheFiles.add(bean);
                             if(listener != null) listener.getFile(bean);
@@ -133,7 +137,7 @@ public class WxUtils {
                             bean.setFile(fileImgs.get(i));
                             bean.setType("voice2");
                             bean.setFileType("amr");
-                            bean.setSelected(true);
+                            bean.setSelected(false);
                             bean.setSize(fileImgs.get(i).length());
                             wxCacheFiles.add(bean);
                             if(listener != null) listener.getFile(bean);
@@ -159,10 +163,13 @@ public class WxUtils {
                 if (f.isFile()) {
                     long size = f.length();
                     switch(type){
-                        case "mp4":
+                        case "video":
                             if(f.getName().endsWith("mp4")){
                                 mFileList.add(f);
+                            }else if(f.getName().endsWith("jpg")){
+                                mFileList.add(f);
                             }
+
                             break;
                         case "voice2":
                             if(f.getName().endsWith(".amr")){
