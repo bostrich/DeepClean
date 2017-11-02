@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.syezon.clean.ReceiveActivity">
+
+    <!-- title-->
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:background="#2f6bd6"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <LinearLayout
+            android:id="@+id/ll_title"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/arrow_left"/>
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="聊天图片清理"
+                android:textSize="20sp"
+                />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_delete"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:text="删除"/>
+
+    <ScrollView
+        android:scrollbars="none"
+        android:layout_below="@id/rl_title"
+        android:layout_above="@id/btn_delete"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/ll_container"
+            android:orientation="vertical"
+            android:background="#cacaca"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+</RelativeLayout>

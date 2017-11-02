@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.syezon.clean.R;
 import com.syezon.clean.Utils;
 import com.syezon.clean.bean.ApkBean;
+import com.syezon.clean.bean.ScanBean;
 import com.syezon.clean.bean.WxCacheBean;
 import com.syezon.clean.interfaces.ApkItemSelectedListener;
 
@@ -27,10 +28,10 @@ import java.util.List;
 public class VoiceAdapter extends RecyclerView.Adapter<VoiceAdapter.MyHolder> {
 
     private Context context;
-    private List<WxCacheBean> list;
+    private List<ScanBean> list;
     private ApkItemSelectedListener listener;
 
-    public VoiceAdapter(Context context, List<WxCacheBean> list, ApkItemSelectedListener listener) {
+    public VoiceAdapter(Context context, List<ScanBean> list, ApkItemSelectedListener listener) {
         this.context = context;
         this.list = list;
         this.listener = listener;
@@ -44,11 +45,30 @@ public class VoiceAdapter extends RecyclerView.Adapter<VoiceAdapter.MyHolder> {
 
     @Override
     public void onBindViewHolder(MyHolder holder, int position) {
-        WxCacheBean bean = list.get(position);
+        final int tem_position = position;
+        ScanBean bean = list.get(position);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         holder.tvName.setText(format.format(new Date(bean.getFile().lastModified())));
         holder.tvSize.setText(Utils.formatSize(bean.getSize()));
-
+        if(bean.isSelected()){
+            holder.checkBox.setChecked(true);
+        }else{
+            holder.checkBox.setChecked(false);
+        }
+        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                list.get(tem_position).setSelected(isChecked);
+                long size = 0;
+                for (int i = 0; i < list.size(); i++) {
+                    ScanBean bean = list.get(i);
+                    if(bean.isSelected()){
+                        size += bean.getSize();
+                    }
+                }
+                if(listener != null) listener.itemSelectedChanged(size);
+            }
+        });
     }
 
     @Override

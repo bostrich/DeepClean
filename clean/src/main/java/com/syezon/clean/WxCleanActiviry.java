@@ -45,6 +45,11 @@ public class WxCleanActiviry extends AppCompatActivity {
     public static List<WxCacheBean> listTalkingVideo = new ArrayList<>();
     public static List<WxCacheBean> listTalkingVideoCover = new ArrayList<>();
     public static List<WxCacheBean> listBlogVideo = new ArrayList<>();
+    public static List<WxCacheBean> listBlogImage = new ArrayList<>();
+    public static List<WxCacheBean> listTalkingImage = new ArrayList<>();
+    public static List<WxCacheBean> listVoice = new ArrayList<>();
+    public static List<WxCacheBean> listReceiveFiles = new ArrayList<>();
+
 
     private Handler mHandler;
     private long scanTotalSize;//扫描结果总和
@@ -214,7 +219,21 @@ public class WxCleanActiviry extends AppCompatActivity {
             case "sns"://朋友圈图片和视频
                 if(bean.getFileType().endsWith("mp4")){
                     listBlogVideo.add(bean);
+                }else{
+                    listBlogImage.add(bean);
                 }
+                break;
+            case "image2":
+                listTalkingImage.add(bean);
+                break;
+            case "image":
+                listBlogImage.add(bean);
+                break;
+            case "voice2":
+                listVoice.add(bean);
+                break;
+            case "download":
+                listReceiveFiles.add(bean);
                 break;
         }
     }
@@ -265,24 +284,46 @@ public class WxCleanActiviry extends AppCompatActivity {
         if(listTalkingVideo.size() > 0 || listBlogVideo.size() > 0){
             rlVideo.setVisibility(View.VISIBLE);
         }
+        if(listTalkingImage.size() > 0 || listBlogImage.size() > 0){
+            rlTalkingImg.setVisibility(View.VISIBLE);
+        }
+        if(listVoice.size() > 0){
+            rlTalkingSound.setVisibility(View.VISIBLE);
+        }
+        if(listReceiveFiles.size() > 0){
+            rlReceive.setVisibility(View.VISIBLE);
+        }
+
         rlVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(WxCleanActiviry.this, WxVideoCleanActivity.class));
+                Intent intent = new Intent(WxCleanActiviry.this, WxVideoCleanActivity.class);
+                intent.putExtra("source", WxVideoCleanActivity.SOURCE_VIDEO);
+                startActivity(intent);
             }
         });
 
         rlTalkingSound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(WxCleanActiviry.this, WxVoiceActivity.class));
+                Intent intent = new Intent(WxCleanActiviry.this, VoiceCleanActivity.class);
+                intent.putExtra("source", VoiceCleanActivity.SOURCE_TYPE_WX);
+                startActivity(intent);
             }
         });
 
         rlTalkingImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(WxCleanActiviry.this, WxTalkingImgActivity.class));
+                Intent intent = new Intent(WxCleanActiviry.this, WxVideoCleanActivity.class);
+                intent.putExtra("source", WxVideoCleanActivity.SOURCE_IMAGE);
+                startActivity(intent);
+            }
+        });
+        rlReceive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(WxCleanActiviry.this, ReceiveActivity.class));
             }
         });
 

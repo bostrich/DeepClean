@@ -15,6 +15,7 @@ import java.util.List;
  * tencent/MicroMsg/文件夹下
  * 32为数字和字母文件夹为微信用户缓存文件夹
  * sns 为朋友圈图片和视频
+ * 微信下载文件夹位置： /tencent/MicroMsg/Download
  */
 
 public class WxUtils {
@@ -142,6 +143,18 @@ public class WxUtils {
                             wxCacheFiles.add(bean);
                             if(listener != null) listener.getFile(bean);
                         }
+                    }
+                }else if(temp.getName().equals("Download") && temp.isDirectory()){
+                    File[] downloadFiles = temp.listFiles();
+                    for (int i = 0; i < downloadFiles.length; i++) {
+                        WxCacheBean bean = new WxCacheBean();
+                        bean.setFile(downloadFiles[i]);
+                        bean.setType("download");
+                        bean.setFileType("file");
+                        bean.setSelected(false);
+                        bean.setSize(downloadFiles[i].length());
+                        wxCacheFiles.add(bean);
+                        if(listener != null) listener.getFile(bean);
                     }
                 }
             }

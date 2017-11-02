@@ -8,10 +8,12 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.syezon.clean.R;
-import com.syezon.clean.bean.ImgCompressBean;
+import com.syezon.clean.Utils;
+import com.syezon.clean.bean.QQCacheBean;
 import com.syezon.clean.bean.WxCacheBean;
 import com.syezon.clean.interfaces.ApkItemSelectedListener;
 
@@ -20,13 +22,13 @@ import java.util.List;
 /**
  * Created by June on 2017/9/7.
  */
-public class ImgCompressAdapter extends RecyclerView.Adapter<ImgCompressAdapter.MyHolder> {
+public class QQImageAdapter extends RecyclerView.Adapter<QQImageAdapter.MyHolder> {
 
     private Context context;
-    private final List<ImgCompressBean> list;
+    private List<QQCacheBean> list;
     private ApkItemSelectedListener listener;
 
-    public ImgCompressAdapter(Context context, List<ImgCompressBean> list, ApkItemSelectedListener listener) {
+    public QQImageAdapter(Context context, List<QQCacheBean> list, ApkItemSelectedListener listener) {
         this.context = context;
         this.list = list;
         this.listener = listener;
@@ -41,8 +43,13 @@ public class ImgCompressAdapter extends RecyclerView.Adapter<ImgCompressAdapter.
     @Override
     public void onBindViewHolder(MyHolder holder, int position) {
         final int tem_position = position;
-        ImgCompressBean bean = list.get(position);
-        Glide.with(context).load(bean.getPath()).override(200, 200).into(holder.icon);
+        QQCacheBean bean = list.get(position);
+        if(bean.getFileType().equals("mp4")){
+            Glide.with(context).load(bean.getFile()).asBitmap().override(200, 200).into(holder.icon);
+        }else{
+            Glide.with(context).load(bean.getFile()).override(200, 200).into(holder.icon);
+        }
+        holder.tvSize.setText(Utils.formatSize(bean.getFile().length()));
         if(bean.isSelected()){
             holder.cb.setChecked(true);
         }else{
@@ -51,13 +58,18 @@ public class ImgCompressAdapter extends RecyclerView.Adapter<ImgCompressAdapter.
         holder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    list.get(tem_position).setSelected(true);
-                }else{
-                    list.get(tem_position).setSelected(false);
+                list.get(tem_position).setSelected(isChecked);
+                long size = 0;
+                for (int i = 0; i < list.size(); i++) {
+                    QQCacheBean bean = list.get(i);
+                    if(bean.isSelected()){
+                        size += bean.getSize();
+                    }
                 }
+                if(listener != null) listener.itemSelectedChanged(size);
             }
         });
+
     }
 
     @Override
@@ -67,11 +79,13 @@ public class ImgCompressAdapter extends RecyclerView.Adapter<ImgCompressAdapter.
 
     public class MyHolder extends RecyclerView.ViewHolder {
         ImageView icon;
+        TextView tvSize;
         CheckBox cb;
 
         public MyHolder(View itemView) {
             super(itemView);
             icon = (ImageView) itemView.findViewById(R.id.img_icon);
+            tvSize = (TextView) itemView.findViewById(R.id.tv_size);
             cb = (CheckBox) itemView.findViewById(R.id.cb);
         }
     }

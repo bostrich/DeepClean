@@ -12,6 +12,7 @@ import android.provider.Settings;
 import android.util.Log;
 
 import com.syezon.clean.bean.ImgCompressBean;
+import com.syezon.clean.bean.ScanBean;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -35,8 +36,6 @@ public class ImgCompress {
 
 
     private static final String TAG = ImgCompress.class.getName();
-    public static List<ImgCompressBean> cameraList = new ArrayList<>();
-    public static List<ImgCompressBean> screenshotList = new ArrayList<>();
 
 
     /**
@@ -44,11 +43,11 @@ public class ImgCompress {
      * 只要获取拍照图片
      * 需要判断是否有外置SD卡 samsung 照片保存在外置存储卡中
      */
-    public static boolean getImages(Context context) {
+    public static void getImages(Context context, ScanListener listener) {
         //获取截屏文件夹位置
-//        File picPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-//        String screenshotPath = picPath.getAbsolutePath() + File.separator + "Screenshots";
-//        Log.e(TAG, "截屏路径：" + screenshotPath);
+        File picPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        String screenshotPath = picPath.getAbsolutePath() + File.separator + "Screenshots";
+        Log.e(TAG, "截屏路径：" + screenshotPath);
 
         List<String> ext = SDCardUtil.getExtSDCardPath();
 
@@ -60,8 +59,6 @@ public class ImgCompress {
         }
         Log.e(TAG, "照片位置：" + cameraPath);
 
-        cameraList.clear();
-        screenshotList.clear();
 
         Uri mImageUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         ContentResolver mContentResolver = context.getContentResolver();
@@ -70,7 +67,8 @@ public class ImgCompress {
                         + MediaStore.Images.Media.MIME_TYPE + "=?",
                 new String[]{"image/jpeg", "image/png"}, MediaStore.Images.Media.DATE_MODIFIED);
         if (mCursor == null) {
-            return false;
+            if(listener != null) listener.scanFinished();
+            return;
         }
 
         HashMap<String,ArrayList<ImgCompressBean>> map = new HashMap<>();
@@ -81,19 +79,23 @@ public class ImgCompress {
 
             File original = new File(path);
 
-
             //获取该图片的父路径名
-            String parentName = new File(path).getParentFile().getAbsolutePath();
+            String parentName = original.getParentFile().getAbsolutePath();
             ImgCompressBean bean = new ImgCompressBean();
-            bean.setParentName(parentName);
-            bean.setPath(path);
+            bean.setFile(original);
             bean.setSelected(true);
+            bean.setSize(original.length());
+            bean.setFileType("jpg");
             if(parentName.equals(cameraPath)){
-                cameraList.add(bean);
+                bean.setType("dcim");
+                if(listener != null) listener.getFile(bean);
+            }else if(parentName.endsWith(screenshotPath)){
+                bean.setType("screenShot");
+                if(listener != null) listener.getFile(bean);
             }
             Log.e(TAG, path);
         }
-        return true;
+        if(listener != null) listener.scanFinished();
     }
 
     public static void compress( String path) {
@@ -123,5 +125,11 @@ public class ImgCompress {
             }
         }
     }
+
+    public interface ScanListener{
+        void getFile(ScanBean bean);
+        void scanFinished();
+    }
+
 
 }

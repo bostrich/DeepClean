@@ -19,7 +19,7 @@
             android:name=".ImgCompressActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".WxVoiceActivity"
+            android:name=".VoiceCleanActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".WxTalkingImgActivity"
@@ -27,7 +27,16 @@
         <activity
             android:name=".QQCleanActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".WxVideoCleanActivity"
+        <activity
+            android:name=".WxVideoCleanActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".ReceiveActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".QQReceiveActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".QQTalkingImgActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
 

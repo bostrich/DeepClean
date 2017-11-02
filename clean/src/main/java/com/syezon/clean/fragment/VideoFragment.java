@@ -19,6 +19,7 @@ import com.syezon.clean.R;
 import com.syezon.clean.Utils;
 import com.syezon.clean.WxCleanActiviry;
 import com.syezon.clean.adapter.WxBlogImageAdapter;
+import com.syezon.clean.bean.ScanBean;
 import com.syezon.clean.bean.WxCacheBean;
 import com.syezon.clean.interfaces.ApkItemSelectedListener;
 
@@ -35,15 +36,18 @@ public class VideoFragment extends Fragment {
     private static final String ARG_TYPE = "arg_type";
     public static final int TYPE_VIDEO_TALKING = 1;
     public static final int TYPE_VIDEO_BLOG = 2;
+    public static final int TYPE_IMAGE_TALKING = 3;
+    public static final int TYPE_IMAGE_BLOG = 4;
+    public static final int TYPE_VOICE = 5;
 
 
     private LinearLayout llContainer;
 
 
-    private List<WxCacheBean> listThumbnail = new ArrayList<>();
-    private List<WxCacheBean> listOneWeek = new ArrayList<>();
-    private List<WxCacheBean> listOneMonth = new ArrayList<>();
-    private List<WxCacheBean> listLongTime = new ArrayList<>();
+    private List<ScanBean> listThumbnail = new ArrayList<>();
+    private List<ScanBean> listOneWeek = new ArrayList<>();
+    private List<ScanBean> listOneMonth = new ArrayList<>();
+    private List<ScanBean> listLongTime = new ArrayList<>();
 
 
     private int type;
@@ -84,10 +88,94 @@ public class VideoFragment extends Fragment {
             case TYPE_VIDEO_BLOG:
                 initVideoBlogVideo();
                 break;
+            case TYPE_IMAGE_TALKING:
+                initImgTalking();
+                break;
+            case TYPE_IMAGE_BLOG:
+                initImageBlog();
+                break;
+            case TYPE_VOICE:
+                initVoice();
+                break;
 
         }
 
 
+    }
+
+    private void initVoice() {
+        for (int i = 0; i < WxCleanActiviry.listBlogImage.size(); i++) {
+            WxCacheBean bean = WxCleanActiviry.listBlogImage.get(i);
+            long dayTime = 1000 * 60 * 60 * 24;
+            if(System.currentTimeMillis() - bean.getFile().lastModified() < dayTime * 7){
+                listOneWeek.add(bean);
+            }else if(System.currentTimeMillis() - bean.getFile().lastModified() < dayTime * 30){
+                listOneMonth.add(bean);
+            }else{
+                listLongTime.add(bean);
+            }
+        }
+        if(listOneWeek.size() > 0){
+            addItemView(listOneWeek, "一周内");
+        }
+
+        if(listOneMonth.size() > 0){
+            addItemView(listOneMonth, "一个月内");
+        }
+
+        if(listLongTime.size() > 0 ){
+            addItemView(listLongTime, "遥远的时代");
+        }
+    }
+
+    private void initImageBlog() {
+        for (int i = 0; i < WxCleanActiviry.listBlogImage.size(); i++) {
+            WxCacheBean bean = WxCleanActiviry.listBlogImage.get(i);
+            long dayTime = 1000 * 60 * 60 * 24;
+            if(System.currentTimeMillis() - bean.getFile().lastModified() < dayTime * 7){
+                listOneWeek.add(bean);
+            }else if(System.currentTimeMillis() - bean.getFile().lastModified() < dayTime * 30){
+                listOneMonth.add(bean);
+            }else{
+                listLongTime.add(bean);
+            }
+        }
+        if(listOneWeek.size() > 0){
+            addItemView(listOneWeek, "一周内");
+        }
+
+        if(listOneMonth.size() > 0){
+            addItemView(listOneMonth, "一个月内");
+        }
+
+        if(listLongTime.size() > 0 ){
+            addItemView(listLongTime, "遥远的时代");
+        }
+    }
+
+    private void initImgTalking() {
+        for (int i = 0; i < WxCleanActiviry.listTalkingImage.size(); i++) {
+            WxCacheBean bean = WxCleanActiviry.listTalkingImage.get(i);
+            long dayTime = 1000 * 60 * 60 * 24;
+            if(System.currentTimeMillis() - bean.getFile().lastModified() < dayTime * 7){
+                listOneWeek.add(bean);
+            }else if(System.currentTimeMillis() - bean.getFile().lastModified() < dayTime * 30){
+                listOneMonth.add(bean);
+            }else{
+                listLongTime.add(bean);
+            }
+        }
+        if(listOneWeek.size() > 0){
+            addItemView(listOneWeek, "一周内");
+        }
+
+        if(listOneMonth.size() > 0){
+            addItemView(listOneMonth, "一个月内");
+        }
+
+        if(listLongTime.size() > 0 ){
+            addItemView(listLongTime, "遥远的时代");
+        }
     }
 
     private void initVideoBlogVideo() {
@@ -148,7 +236,7 @@ public class VideoFragment extends Fragment {
         }
     }
 
-    private void addItemView(final List<WxCacheBean> list, String title) {
+    private void addItemView(final List<ScanBean> list, String title) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.item_wx_video_clean, null, false);
         LinearLayout llThumbnail = (LinearLayout) view.findViewById(R.id.ll_thumbnail);
         final TextView tvTotalThumbnail = (TextView) view.findViewById(R.id.tv_total_thumbnail);

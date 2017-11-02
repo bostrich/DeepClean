@@ -3,9 +3,11 @@ package com.syezon.clean;
 import android.util.Log;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Created by June on 2017/10/25.
+ *
  */
 
 public class FileScanUtil {
@@ -29,6 +31,24 @@ public class FileScanUtil {
             }
         }
         if(listener != null && level == 0) listener.scanFinish();
+    }
+
+    public static List<File> getAllFile(File file){
+        List<File> list = new ArrayList<>();
+        if(file.isDirectory()){
+            File[] files = file.listFiles();
+            for (int i = 0; i < files.length; i++) {
+                File temp = files[i];
+                if(temp.isDirectory()){
+                    list.addAll(getAllFile(temp));
+                }else{
+                    list.add(temp);
+                }
+            }
+        }else{
+            list.add(file);
+        }
+        return list;
     }
 
 

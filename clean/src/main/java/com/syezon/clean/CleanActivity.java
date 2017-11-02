@@ -210,32 +210,6 @@ public class CleanActivity extends AppCompatActivity {
         }).start();
     }
 
-    /**
-     * 获取要压缩的图片
-     */
-    private void getPics() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                boolean result = ImgCompress.getImages(CleanActivity.this);
-
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        long size = 0;
-                        for (ImgCompressBean bean :ImgCompress.screenshotList) {
-                            size += bean.getSaveSize();
-                        }
-
-                        for (ImgCompressBean bean :ImgCompress.cameraList) {
-                            size += bean.getSaveSize();
-                        }
-
-                    }
-                });
-            }
-        }).start();
-    }
 
     private void getWxCache() {
         new Thread(new Runnable() {

@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.syezon.clean.adapter.VoiceAdapter;
 import com.syezon.clean.adapter.WxBlogImageAdapter;
+import com.syezon.clean.bean.ScanBean;
 import com.syezon.clean.bean.WxCacheBean;
 
 import java.util.ArrayList;
@@ -18,9 +19,9 @@ public class WxTalkingImgActivity extends AppCompatActivity {
     private RecyclerView recLongTime, recHalfYear, recOneMonth;
     private RecyclerView.Adapter adapterOneMonth, adapterHalfYear, adapterLongTime;
 
-    private List<WxCacheBean> listLongTime = new ArrayList<>();
-    private List<WxCacheBean> listHalfYear = new ArrayList<>();
-    private List<WxCacheBean> listOneMonth = new ArrayList<>();
+    private List<ScanBean> listLongTime = new ArrayList<>();
+    private List<ScanBean> listHalfYear = new ArrayList<>();
+    private List<ScanBean> listOneMonth = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

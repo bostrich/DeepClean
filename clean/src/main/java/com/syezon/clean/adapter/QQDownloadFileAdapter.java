@@ -1,36 +1,32 @@
 package com.syezon.clean.adapter;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.syezon.clean.R;
 import com.syezon.clean.Utils;
-import com.syezon.clean.bean.ApkBean;
-import com.syezon.clean.bean.ScanBean;
+import com.syezon.clean.bean.QQCacheBean;
 import com.syezon.clean.bean.WxCacheBean;
 import com.syezon.clean.interfaces.ApkItemSelectedListener;
 
 import java.util.List;
 
 /**
- * Created by June on 2017/9/7.
+ *
  */
-public class WxBlogImageAdapter extends RecyclerView.Adapter<WxBlogImageAdapter.MyHolder> {
+public class QQDownloadFileAdapter extends RecyclerView.Adapter<QQDownloadFileAdapter.MyHolder> {
 
     private Context context;
-    private List<ScanBean> list;
+    private List<QQCacheBean> list;
     private ApkItemSelectedListener listener;
 
-    public WxBlogImageAdapter(Context context, List<ScanBean> list, ApkItemSelectedListener listener) {
+    public QQDownloadFileAdapter(Context context, List<QQCacheBean> list, ApkItemSelectedListener listener) {
         this.context = context;
         this.list = list;
         this.listener = listener;
@@ -38,32 +34,28 @@ public class WxBlogImageAdapter extends RecyclerView.Adapter<WxBlogImageAdapter.
 
     @Override
     public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_wx_blog_image, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_download, parent, false);
         return new MyHolder(view);
     }
 
     @Override
     public void onBindViewHolder(MyHolder holder, int position) {
         final int tem_position = position;
-        ScanBean bean = list.get(position);
-        if(bean.getFileType().equals("mp4")){
-            Glide.with(context).load(bean.getFile()).asBitmap().override(200, 200).into(holder.icon);
-        }else{
-            Glide.with(context).load(bean.getFile()).override(200, 200).into(holder.icon);
-        }
-        holder.tvSize.setText(Utils.formatSize(bean.getFile().length()));
+        QQCacheBean bean = list.get(position);
+        holder.tvName.setText(bean.getFile().getName());
+        holder.tvSize.setText(Utils.formatSize(bean.getSize()));
         if(bean.isSelected()){
-            holder.cb.setChecked(true);
+            holder.checkBox.setChecked(true);
         }else{
-            holder.cb.setChecked(false);
+            holder.checkBox.setChecked(false);
         }
-        holder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 list.get(tem_position).setSelected(isChecked);
                 long size = 0;
                 for (int i = 0; i < list.size(); i++) {
-                    ScanBean bean = list.get(i);
+                    QQCacheBean bean = list.get(i);
                     if(bean.isSelected()){
                         size += bean.getSize();
                     }
@@ -71,7 +63,6 @@ public class WxBlogImageAdapter extends RecyclerView.Adapter<WxBlogImageAdapter.
                 if(listener != null) listener.itemSelectedChanged(size);
             }
         });
-
     }
 
     @Override
@@ -80,15 +71,15 @@ public class WxBlogImageAdapter extends RecyclerView.Adapter<WxBlogImageAdapter.
     }
 
     public class MyHolder extends RecyclerView.ViewHolder {
-        ImageView icon;
+        TextView tvName;
         TextView tvSize;
-        CheckBox cb;
+        CheckBox checkBox;
 
         public MyHolder(View itemView) {
             super(itemView);
-            icon = (ImageView) itemView.findViewById(R.id.img_icon);
+            tvName = (TextView) itemView.findViewById(R.id.tv_name);
             tvSize = (TextView) itemView.findViewById(R.id.tv_size);
-            cb = (CheckBox) itemView.findViewById(R.id.cb);
+            checkBox = (CheckBox) itemView.findViewById(R.id.checkbox);
         }
     }
 

@@ -24,6 +24,7 @@
                 android:src="@drawable/arrow_left"/>
 
             <TextView
+                android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
@@ -34,28 +35,28 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:gravity="center_vertical"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+        <!--<LinearLayout-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent">-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="全选"/>
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textSize="14sp"-->
+                <!--android:text="全选"/>-->
 
-            <CheckBox
-                android:id="@+id/cb_all"
-                android:layout_marginLeft="15dp"
-                android:padding="15dp"
-                android:layout_width="40dp"
-                android:layout_height="40dp" />
+            <!--<CheckBox-->
+                <!--android:id="@+id/cb_all"-->
+                <!--android:layout_marginLeft="15dp"-->
+                <!--android:padding="15dp"-->
+                <!--android:layout_width="40dp"-->
+                <!--android:layout_height="40dp" />-->
 
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
     </RelativeLayout>
 
