@@ -381,8 +381,7 @@ public class CleanActivity extends AppCompatActivity {
                         adapter.notifyDataSetChanged();
                         setCheckboxImgAndTag(imgCheckbox, 0);
                         cacheCleanTotalSize = 0;
-                        setCleanTotalSize();
-                        break;
+                        setCleanTotalSize();break;
                 }
             }
         });
