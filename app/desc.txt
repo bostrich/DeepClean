@@ -30,14 +30,10 @@ QQ同步助手-com.tencent.qqpim-qqpim
 360手机卫士-com.qihoo360.mobilesafe-360/mobilesafe
 讯飞输入法手机版-com.iflytek.inputmethod-iFlyIME
 网易新闻-com.netease.newsreader.activity-com.netease.newsreader.activity&&netease/newsreader
-58同城-com.wuba
-ofo共享单车-so.ofo.labofo
-百度网盘-com.baidu.netdisk
-今日头条极速版-com.ss.android.article.lite
-WIFI管家-腾讯-com.tencent.wifimanager
-MOMO陌陌-com.immomo.momo
-喜马拉雅-com.ximalaya.ting.android
-凤凰新闻-com.ifeng.news2
+百度网盘-com.baidu.netdisk-BaiduNetdisk
+WIFI管家-腾讯-com.tencent.wifimanager-com.tencent.wifimanager&&
+MOMO陌陌-com.immomo.momo-immomo
+凤凰新闻-com.ifeng.news2-com.ifeng.news2
 内涵段子-com.ss.android.essay.joke
 地铁背单词考研版-com.shopfeng.englishlearnerKaoyan
 哔哩哔哩-tv.danmaku.bili
@@ -100,3 +96,7 @@ KingRoot-com.kingroot.kinguser-
 火山小视频-com.ss.android.ugc.live-
 梦幻西游礼包-
 西瓜视频-com.ss.android.article.video-
+58同城-com.wuba-
+ofo共享单车-so.ofo.labofo-
+今日头条极速版-com.ss.android.article.lite-
+喜马拉雅-com.ximalaya.ting.android-
