@@ -28,7 +28,6 @@ import com.syezon.clean.adapter.ApkInfoAdapter;
 import com.syezon.clean.adapter.AppCacheAdapter;
 import com.syezon.clean.bean.ApkBean;
 import com.syezon.clean.bean.AppCacheBean;
-import com.syezon.clean.bean.ImgCompressBean;
 import com.syezon.clean.bean.WxCacheBean;
 import com.syezon.clean.interfaces.ApkItemSelectedListener;
 
@@ -98,9 +97,6 @@ public class CleanActivity extends AppCompatActivity {
     private void initData() {
         getApkAndLog();
         getAppCaches();
-//        getWxCache();
-//        getPics();
-//        getVideos();
 
     }
 
@@ -150,9 +146,6 @@ public class CleanActivity extends AppCompatActivity {
                         checkFinishedAllScan();
                         break;
                     case SCAN_WX_FINISHED:
-//                        customLoadingWx.cleanRotating();
-//                        customLoadingWx.setVisibility(View.GONE);
-//                        imgLoadedWx.setVisibility(View.VISIBLE);
                         scanFinishedItem++;
                         checkFinishedAllScan();
                         break;
@@ -198,33 +191,7 @@ public class CleanActivity extends AppCompatActivity {
         }.start();
     }
 
-    /**
-     * 获取视频文件
-     */
-    private void getVideos() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                VideoCompress.getVideos(CleanActivity.this.getApplicationContext());
-            }
-        }).start();
-    }
 
-
-    private void getWxCache() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                wxCacheFiles.addAll(CleanManager.searchWx(CleanActivity.this));
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        mHandler.sendEmptyMessage(SCAN_WX_FINISHED);
-                    }
-                });
-            }
-        }).start();
-    }
 
     private void getAppCaches() {
         new Thread() {
@@ -266,9 +233,7 @@ public class CleanActivity extends AppCompatActivity {
                 setAppCacheViews(llContainerItems);
             }
             //添加微信专清视图判断内存中是否具有微信安装文件夹
-//            if(wxCacheFiles.size() > 0){
-                setWxCleanViews(llContainerItems);
-//            }
+            setWxCleanViews(llContainerItems);
 
             //添加QQ专清视图判断内存中是否具有QQ安装文件夹
             setQQCleanViews(llContainerItems);
@@ -539,6 +504,12 @@ public class CleanActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(CleanActivity.this, ImgCompressActivity.class));
+            }
+        });
+        llVideoCompress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CleanActivity.this, VideoCompressActivity.class));
             }
         });
         llContainerItems.addView(view);

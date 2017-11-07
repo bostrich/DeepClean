@@ -36,7 +36,10 @@
         <activity
             android:name=".QQReceiveActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".QQTalkingImgActivity"
+        <activity
+            android:name=".QQTalkingImgActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".VideoCompressActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
 

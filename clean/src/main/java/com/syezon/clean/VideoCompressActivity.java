@@ -4,46 +4,32 @@ import android.animation.ObjectAnimator;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.syezon.clean.adapter.WxBlogImageAdapter;
-import com.syezon.clean.bean.ApkBean;
-import com.syezon.clean.bean.ImgCompressBean;
-import com.syezon.clean.bean.ImgCompressFileBean;
 import com.syezon.clean.bean.ScanBean;
-import com.syezon.clean.bean.WxCacheBean;
 import com.syezon.clean.interfaces.ApkItemSelectedListener;
 import com.syezon.clean.utils.DialogUtil;
 
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.RunnableFuture;
 
-public class ImgCompressActivity extends AppCompatActivity {
+public class VideoCompressActivity extends AppCompatActivity {
 
-    private static final int GET_IMAGE_FINISHED = 11;
-    private static final int GET_IMAGE_FAILED = 12;
-    private static final int GET_FILE_BEAN = 13;
+    private static final int GET_VIDEO_BEAN = 1;
+    private static final int GET_VIDEO_FINISHED = 2;
 
     private LinearLayout llContainerItems;
     private DotRotateLoadingView customLoadingCompress;
@@ -51,27 +37,46 @@ public class ImgCompressActivity extends AppCompatActivity {
     private ImageView imgLoaded;
     private TextView tvScanTotalSize;
 
-    public static List<ScanBean> listDcim = new ArrayList<>();
-    public static List<ScanBean> listScreenshot = new ArrayList<>();
-
-    private long scanTotalSize;
-
     private Handler mHandler;
+
+    private List<ScanBean> listOneWeek = new ArrayList<>();
+    private List<ScanBean> listOneMonth = new ArrayList<>();
+    private List<ScanBean> listLongTime = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_img_compress);
+        setContentView(R.layout.activity_video_compress);
         initViews();
         initHandler();
         initData();
     }
 
-
     private void initData() {
-        listDcim.clear();
-        listScreenshot.clear();
-        getImgCompress();
+        getCompressVideo();
+    }
+
+    private void getCompressVideo() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                VideoCompress.getVideos(VideoCompressActivity.this, new ImgCompress.ScanListener() {
+                    @Override
+                    public void getFile(ScanBean bean) {
+                        Message msg = mHandler.obtainMessage();
+                        msg.what = GET_VIDEO_BEAN;
+                        msg.obj = bean;
+                        mHandler.sendMessage(msg);
+                    }
+
+                    @Override
+                    public void scanFinished() {
+                        mHandler.sendEmptyMessage(GET_VIDEO_FINISHED);
+                    }
+                });
+            }
+        }).start();
     }
 
     private void initHandler() {
@@ -79,23 +84,14 @@ public class ImgCompressActivity extends AppCompatActivity {
             @Override
             public void handleMessage(Message msg) {
                 switch(msg.what){
-                    case GET_IMAGE_FINISHED://成功获取图片列表
-                        setScanImageFinished(llContainerItems);
-                        break;
-                    case GET_IMAGE_FAILED:
-                        break;
-
-                    case GET_FILE_BEAN:
+                    case GET_VIDEO_BEAN:
                         if(msg.obj instanceof ScanBean){
                             ScanBean bean = (ScanBean) msg.obj;
-                            if(bean.getType().equals("dcim")){
-                                listDcim.add(bean);
-                            }else if(bean.getType().equals("screenShot")){
-                                listScreenshot.add(bean);
-                            }
-                            scanTotalSize += bean.getSize();
-                            tvScanTotalSize.setText(Utils.formatSize(scanTotalSize));
+                            initVideoData(bean);
                         }
+                        break;
+                    case GET_VIDEO_FINISHED:
+                        setScanImageFinished(llContainerItems);
                         break;
 
                 }
@@ -103,28 +99,15 @@ public class ImgCompressActivity extends AppCompatActivity {
         };
     }
 
-
-
-    private void getImgCompress() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                ImgCompress.getImages(ImgCompressActivity.this, new ImgCompress.ScanListener() {
-                    @Override
-                    public void getFile(ScanBean bean) {
-                        Message msg = mHandler.obtainMessage();
-                        msg.what = GET_FILE_BEAN;
-                        msg.obj = bean;
-                        mHandler.sendMessage(msg);
-                    }
-
-                    @Override
-                    public void scanFinished() {
-                        mHandler.sendEmptyMessage(GET_IMAGE_FINISHED);
-                    }
-                });
-            }
-        }).start();
+    private void initVideoData(ScanBean bean){
+        long dayTime = 1000 * 60 * 60 * 24;
+        if(System.currentTimeMillis() - bean.getFile().lastModified() < dayTime * 7){
+            listOneWeek.add(bean);
+        }else if(System.currentTimeMillis() - bean.getFile().lastModified() < dayTime * 30){
+            listOneMonth.add(bean);
+        }else{
+            listLongTime.add(bean);
+        }
     }
 
     private void initViews() {
@@ -148,21 +131,17 @@ public class ImgCompressActivity extends AppCompatActivity {
         imgLoaded.setVisibility(View.VISIBLE);
 
         llContainerItems.removeAllViews();
-
-        ScanBean temp = null;
-        if(listDcim.size() > 0){
-            addItemView(listDcim, "手机拍照（" + listDcim.size() + "）");
-            temp = listDcim.get(0);
-        }
-        if(listScreenshot.size() > 0){
-            addItemView(listScreenshot, "手机截屏（" + listScreenshot.size() + "）" );
-            if(temp == null) temp = listScreenshot.get(0);
+        if(listOneWeek.size() > 0){
+            addItemView(listOneWeek, "一周内");
         }
 
-        //显示对话框
-        if(temp != null) DialogUtil.showImgCompress(this, temp);
+        if(listOneMonth.size() > 0 ){
+            addItemView(listOneMonth, "一个月内");
+        }
 
-
+        if(listLongTime.size() > 0){
+            addItemView(listLongTime, "遥远的年代");
+        }
 
 
     }

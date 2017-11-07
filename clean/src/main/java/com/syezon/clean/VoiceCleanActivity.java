@@ -1,7 +1,6 @@
 package com.syezon.clean;
 
 import android.animation.ObjectAnimator;
-import android.support.constraint.solver.ArrayLinkedVariables;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
