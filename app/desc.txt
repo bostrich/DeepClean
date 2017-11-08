@@ -3,7 +3,7 @@ https://aso100.com/rank/monthly/platform/android/country/cn/month/2017-09
 wifi万能钥匙-com.snda.wifilocating-WiFiMasterKey
 新浪微博-com.sina.weibo-sina
 腾讯视频-com.tencent.qqlive-com.tencent.qqlive
-QQ-com.tencent.mobileqq-tencent/MobileQQ
+QQ-com.tencent.mobileqq-tencent/MobileQQ&&com.tencent.mobileqq
 WPS Office-cn.wps.moffice_eng-documents
 爱奇艺-com.qiyi.video-QiYiVideo_Local
 微信-com.tencent.mm-tencent/MiscroMsg
@@ -34,32 +34,23 @@ QQ同步助手-com.tencent.qqpim-qqpim
 WIFI管家-腾讯-com.tencent.wifimanager-com.tencent.wifimanager&&
 MOMO陌陌-com.immomo.momo-immomo
 凤凰新闻-com.ifeng.news2-com.ifeng.news2
-内涵段子-com.ss.android.essay.joke
-地铁背单词考研版-com.shopfeng.englishlearnerKaoyan
-哔哩哔哩-tv.danmaku.bili
-农行掌上银行-com.android.bankabc
-天天快报_腾讯-com.tencent.reading
-QQ邮箱-com.tencent.androidqqmail
-android system-com.google.android.webview
-faceu激萌-com.lemon.faceu
-网易云音乐-com.netease.cloudmusic
-翼支付-com.chinaatelecom.bestpayclient
-QQ空间-com.qzone
-迅雷-com.xunlei.downloadprovider
-无忧贷-com.yixuan.wyd
-土豆视频-com.tudou.android
-B612咔叽-com.campmobile.snowcamera
-搜狐视频-com.sohu.sohuvideo
-美团外卖-com.sankuai.meituan.takeoutnew
-欢乐斗地主-com.qqgame.hlddz
-天猫-com.tmall.wireless
-知乎-com.zhihu.android
-驾考宝典-com.handsgo.jiakao.android
-中国工商银行-com.icbc
+摩拜单车-com.mobike.mobikeapp-mobike
+天天快报_腾讯-com.tencent.reading-com.tencent.reading&&tencent/TencentReading
+QQ邮箱-com.tencent.androidqqmail-tencent/QQmail
+网易云音乐-com.netease.cloudmusic-netease/cloudmusic
+翼支付-com.chinaatelecom.bestpayclient-bestpay
+QQ空间-com.qzone-tencent/Qzone
+迅雷-com.xunlei.downloadprovider-xunlei
+土豆视频-com.tudou.android-Tudou
+搜狐视频-com.sohu.sohuvideo-sohu/SohuVideo
+欢乐斗地主-com.qqgame.hlddz-HappyGame/hlddz
+天猫-com.tmall.wireless-com.tmall.wireless
+知乎-com.zhihu.android-zhihu
+驾考宝典-com.handsgo.jiakao.android-carsLib
+中国工商银行-com.icbc-icbcim&&icbcimlite
 百度贴吧-com.baidu.tieba
 工银融E联-com.icbc.im
 汽车之家-com.cubic.autohome
-率土之滨礼包
 芒果TV-com.hunantv.imgo.activity
 乐视视频-com.letv.android.client
 Quik-com.stupeflix.replay
@@ -90,7 +81,6 @@ QQ阅读-com.qq.reader
 全民K歌-com.tencent.karaoke-
 中国建设银行-com.chinamworld.main-
 开心消消乐-com.happyelements.AndroidAnimal-
-摩拜单车-com.mobike.mobikeapp-
 KingRoot-com.kingroot.kinguser-
 饿了么-me.ele-
 火山小视频-com.ss.android.ugc.live-
@@ -100,3 +90,13 @@ KingRoot-com.kingroot.kinguser-
 ofo共享单车-so.ofo.labofo-
 今日头条极速版-com.ss.android.article.lite-
 喜马拉雅-com.ximalaya.ting.android-
+地铁背单词考研版-com.shopfeng.englishlearnerKaoyan-
+内涵段子-com.ss.android.essay.joke-
+哔哩哔哩-tv.danmaku.bili-
+android system-com.google.android.webview-
+农行掌上银行-com.android.bankabc-
+faceu激萌-com.lemon.faceu-
+无忧贷-com.yixuan.wyd-
+B612咔叽-com.campmobile.snowcamera
+率土之滨礼包
+美团外卖-com.sankuai.meituan.takeoutnew-
