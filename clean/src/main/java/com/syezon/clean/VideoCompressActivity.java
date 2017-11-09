@@ -22,6 +22,7 @@ import com.syezon.clean.adapter.WxBlogImageAdapter;
 import com.syezon.clean.bean.ScanBean;
 import com.syezon.clean.interfaces.ApkItemSelectedListener;
 import com.syezon.clean.utils.DialogUtil;
+import com.syezon.clean.utils.VideoCompressUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,7 +142,10 @@ public class VideoCompressActivity extends AppCompatActivity {
 
         if(listLongTime.size() > 0){
             addItemView(listLongTime, "遥远的年代");
+            VideoCompressUtil.doCompress(listLongTime.get(1).getFile().getAbsolutePath());
         }
+
+
 
 
     }
