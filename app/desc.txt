@@ -48,7 +48,7 @@ QQ空间-com.qzone-tencent/Qzone
 知乎-com.zhihu.android-zhihu
 驾考宝典-com.handsgo.jiakao.android-carsLib
 中国工商银行-com.icbc-icbcim&&icbcimlite
-百度贴吧-com.baidu.tieba
+百度贴吧-com.baidu.tieba-
 工银融E联-com.icbc.im
 汽车之家-com.cubic.autohome
 芒果TV-com.hunantv.imgo.activity
